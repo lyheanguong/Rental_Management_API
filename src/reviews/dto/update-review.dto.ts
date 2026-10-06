@@ -16,6 +16,10 @@ export class UpdateReviewDto {
     user_id?: number;
 
     @IsOptional()
+    @IsString()
+    username?: string;
+
+    @IsOptional()
     @IsInt()
     @Min(1)
     @Max(5)

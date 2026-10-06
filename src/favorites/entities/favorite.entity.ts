@@ -2,34 +2,22 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
+  CreateDateColumn,
+  Unique,
 } from 'typeorm';
 
-
-
 @Entity('favorites')
+@Unique(['user_id', 'property_id'])
 export class Favorite {
-
-
   @PrimaryGeneratedColumn()
-  id!: number;
-
-
+  id?: number;
 
   @Column()
-  user_id!: number;
-
-
+  user_id?: number;
 
   @Column()
-  property_id!: number;
+  property_id?: number;
 
-
-
-  @Column({
-    type:'timestamp',
-    default: () => 'CURRENT_TIMESTAMP'
-  })
-  created_at!: Date;
-
-
+  @CreateDateColumn()
+  created_at?: Date;
 }

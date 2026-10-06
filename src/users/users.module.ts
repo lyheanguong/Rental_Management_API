@@ -4,29 +4,14 @@ import { User } from './entities/user.entity';
 import { UserService } from './users.service';
 import { UserController } from './users.controller';
 
-
 @Module({
-
   imports: [
     TypeOrmModule.forFeature([
       User
     ])
   ],
-
-
-  controllers: [
-    UserController
-  ],
-
-
-  providers: [
-    UserService
-  ],
-
-
-  exports: [
-    UserService
-  ]
-
+  controllers: [UserController],
+  providers: [UserService],
+  exports: [UserService]
 })
 export class UserModule { }

@@ -10,6 +10,9 @@ export class CreateReviewDto {
     @IsInt()
     property_id!: number;
 
+    @IsString()
+    username!: string;
+
     @IsInt()
     user_id!: number;
 

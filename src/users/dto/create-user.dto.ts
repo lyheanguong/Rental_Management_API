@@ -28,4 +28,8 @@ export class CreateUserDto {
 
     @IsBoolean()
     status!: boolean;
+
+    @IsOptional()
+    @IsString()
+    fcm_token?: string;
 }

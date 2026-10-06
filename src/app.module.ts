@@ -12,6 +12,10 @@ import { ReviewsModule } from './reviews/reviews.module';
 import { RentalRequestsModule } from './rental_requests/rental_requests.module';
 import { RentalContractsModule } from './rental_contracts/rental_contracts.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { MessagesModule } from './messages/messages.module';
+import { TelegramModule } from './telegram/telegram.module';
+import { FavoritesModule } from './favorites/favorites.module';
+import { FirebaseModule } from './firebase/firebase.module';
 
 @Module({
   imports: [
@@ -51,6 +55,10 @@ import { ServeStaticModule } from '@nestjs/serve-static';
     ReviewsModule,
     RentalRequestsModule,
     RentalContractsModule,
+    MessagesModule,
+    TelegramModule,
+    FavoritesModule,
+    FirebaseModule,
   ],
 })
 export class AppModule { }

@@ -2,12 +2,14 @@ import {
     IsDateString,
     IsNotEmpty,
     IsNumber,
+    IsOptional,
     IsString,
 } from 'class-validator';
 
 export class CreateRentalContractDto {
+    @IsOptional()
     @IsNumber()
-    request_id!: number;
+    request_id?: number;
 
     @IsNumber()
     property_id!: number;

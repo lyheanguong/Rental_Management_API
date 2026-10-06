@@ -1,3 +1,4 @@
+
 import {
   Injectable,
   UnauthorizedException,
@@ -13,12 +14,23 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) { }
 
+  // ==========================================
+  // LOGIN
+  // ==========================================
   async login(email: string, password: string) {
     const user = await this.userService.findByEmail(email);
 
+    // Check email and password
     if (!user || user.password !== password) {
       throw new UnauthorizedException(
-        'Invalid email or password',
+        'Email or password is incorrect.',
+      );
+    }
+
+    // Check account status
+    if (!user.status) {
+      throw new UnauthorizedException(
+        'Your account is inactive. Please contact the administrator.',
       );
     }
 
@@ -28,28 +40,42 @@ export class AuthService {
       role: user.role,
     };
 
+    // Access token
     const accessToken = this.jwtService.sign(payload, {
       expiresIn: '15m',
     });
 
+    // Refresh token
     const refreshToken = this.jwtService.sign(payload, {
       expiresIn: '7d',
     });
 
     return {
-      accessToken,
-      refreshToken,
-      user: {
-        id: user.id,
-        full_name: user.full_name,
-        email: user.email,
-        role: user.role,
-
+      success: true,
+      message: 'Login successful.',
+      data: {
+        accessToken,
+        refreshToken,
+        user: {
+          id: user.id,
+          full_name: user.full_name,
+          email: user.email,
+          role: user.role,
+        },
       },
     };
   }
 
+  // ==========================================
+  // REFRESH ACCESS TOKEN
+  // ==========================================
   async refresh(refreshToken: string) {
+    if (!refreshToken) {
+      throw new UnauthorizedException(
+        'Refresh token is required.',
+      );
+    }
+
     try {
       const payload =
         await this.jwtService.verifyAsync(refreshToken);
@@ -66,11 +92,15 @@ export class AuthService {
       );
 
       return {
-        accessToken,
+        success: true,
+        message: 'Access token refreshed successfully.',
+        data: {
+          accessToken,
+        },
       };
     } catch {
       throw new UnauthorizedException(
-        'Invalid refresh token',
+        'Refresh token is invalid or expired. Please log in again.',
       );
     }
   }

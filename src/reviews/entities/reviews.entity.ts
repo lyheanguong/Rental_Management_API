@@ -17,6 +17,9 @@ export class Review {
   @Column()
   user_id?: number;
 
+  @Column()
+  username?: string;
+
   @Column('int')
   rating?: number;
 

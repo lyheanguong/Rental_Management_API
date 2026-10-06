@@ -48,6 +48,12 @@ export class User {
   })
   updated_at?: Date;
 
+  @Column({
+    type: 'text',
+    nullable: true,
+  })
+  fcm_token!: string | null;
+
   @Column()
   refresh_token?: string;
 
